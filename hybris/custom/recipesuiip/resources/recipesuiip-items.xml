@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- ~ [y] hybris Platform ~ ~ Copyright (c) 2000-2016 SAP SE ~ All rights 
+	reserved. ~ ~ This software is the confidential and proprietary information 
+	of SAP ~ Hybris ("Confidential Information"). You shall not disclose such 
+	~ Confidential Information and shall use it only in accordance with the ~ 
+	terms of the license agreement you entered into with SAP Hybris. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according 
+	to your needs. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<!-- Definisco un enumtype che utilizzo come colonna per la tabella Ricetta, 
+		per definire il tipo di portata -->
+
+	<enumtypes>
+		<enumtype code="Portata" autocreate="true" generate="true"
+			dynamic="true">
+			<value code="antipasto" />
+			<value code="primoPiatto" />
+			<value code="secondoPiatto" />
+			<value code="contorno" />
+			<value code="dolce" />
+		</enumtype>
+	</enumtypes>
+
+
+	<relations>
+
+		<!-- Relazione many-to-many tra Ricetta ed Ingrediente -->
+		<relation code="Ricetta2IngredienteRelation" generate="true"
+			autocreate="true" localized="false">
+			<deployment table="Ricetta2IngredienteRel" typecode="16004" />
+			<sourceElement type="Ricetta" qualifier="ricette"
+				cardinality="many">
+				<modifiers optional="false" unique="false" />
+			</sourceElement>
+			<targetElement type="Ingrediente" qualifier="ingredienti"
+				cardinality="many">
+				<modifiers optional="false" unique="false" />
+			</targetElement>
+		</relation>
+
+		<!-- Relazione many-to-many tra Ricetta ed Strumento -->
+		<relation code="Ricetta2StrumentoRelation" generate="true"
+			autocreate="true" localized="false">
+			<deployment table="Ricetta2StrumentoRel" typecode="16005" />
+			<sourceElement type="Ricetta" qualifier="ricette"
+				cardinality="many">
+				<modifiers optional="false" unique="false" />
+			</sourceElement>
+			<targetElement type="Strumento" qualifier="strumenti"
+				cardinality="many">
+				<modifiers optional="false" unique="false" />
+			</targetElement>
+		</relation>
+
+		<!-- Relazione one-to-many tra Autore e Ricetta -->
+		<relation code="Autore2RicettaRelation" generate="true"
+			autocreate="true" localized="false">
+			<sourceElement qualifier="autore" type="Autore"
+				cardinality="one" />
+			<targetElement qualifier="ricette" type="Ricetta"
+				cardinality="many" />
+		</relation>
+
+	</relations>
+
+
+
+	<itemtypes>
+
+		<!-- Type che si aggancia alla tabella generata dalla relazione many-to-many 
+			tra Ricetta ed Ingrediente ed aggiunge a tale tabella una colonna "quantita" 
+			
+			soluzione trovata all'indirizzo 
+			https://wiki.hybris.com/pages/viewpage.action?spaceKey=forum&title=creating
+			+composite+key+in+many+to+many+relation-->
+
+		<itemtype code="Ricetta2IngredienteRelation" autocreate="true"
+			generate="true">
+			<attributes>
+				<attribute autocreate="true" qualifier="quantita" type="java.lang.Integer">
+					<modifiers read="true" write="true" search="true"
+						optional="false" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+			<indexes>
+				<index name="Ricetta2IngredienteRelIndex" unique="true">
+					<key attribute="source" />
+					<key attribute="target" />
+				</index>
+			</indexes>
+		</itemtype>
+
+		<!-- Type Ricetta che definisce gli attributi di una ricetta e costruisce 
+			una tabella nel DB -->
+		<itemtype code="Ricetta" autocreate="true" generate="true">
+			<deployment table="Ricetta" typecode="16000" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.Integer">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="nome" type="java.lang.String">
+					<modifiers optional="false" unique="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="portata" type="Portata">
+					<modifiers optional="false" unique="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="descrizione" type="java.lang.String">
+					<modifiers optional="false" unique="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="procedimento" type="java.lang.String">
+					<modifiers optional="false" unique="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="calorie" type="java.lang.Integer">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="tempoTot" type="java.lang.String">
+					<modifiers optional="false" unique="false" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<!-- Type Ingrediente che definisce gli attributi di un ingrediente e costruisce 
+			una tabella nel DB -->
+		<itemtype code="Ingrediente" autocreate="true" generate="true">
+			<deployment table="Ingrediente" typecode="16001" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.Integer">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="nome" type="java.lang.String">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<!-- Type Strumento che definisce gli attributi di uno strumento e costruisce 
+			una tabella nel DB -->
+		<itemtype code="Strumento" autocreate="true" generate="true">
+			<deployment table="Strumento" typecode="16002" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.Integer">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="nome" type="java.lang.String">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<!-- Type Autore che definisce gli attributi dell'autore di una o più ricette 
+			e costruisce una tabella nel DB -->
+		<itemtype code="Autore" autocreate="true" generate="true">
+			<deployment table="Autore" typecode="16003" />
+			<attributes>
+				<attribute qualifier="id" type="java.lang.Integer">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="riferimento" type="java.lang.String">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+
+
+	</itemtypes>
+</items>
