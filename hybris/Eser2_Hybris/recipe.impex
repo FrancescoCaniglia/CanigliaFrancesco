@@ -1,0 +1,61 @@
+# ImpEx for Importing Products
+$Lang=it
+
+INSERT_UPDATE Autore; id[unique=true]; riferimento
+					; 1; Chef Rubio
+					; 2; Tonino Cannavacciuolo
+					; 3; La nonna
+					; 4; Joe Bastianich
+					; 5; Nonna Pina
+
+INSERT_UPDATE Ingrediente; id[unique=true]; nome
+						 ; 1; uova
+						 ; 2; farina
+						 ; 3; acqua
+						 ; 5; latte
+						 ; 6; sal
+						 ; 7; pancetta
+						 ; 8; pasta
+						 ; 9; pomodoro
+						 ; 10; cipolla
+						 ; 11; zucchero
+
+INSERT_UPDATE Ricetta; id[unique=true]; nome[lang=$Lang]; descrizione; procedimento[default='Miscela tutto']; calorie; tempoTot; autore(id)
+					 ; 1; Pasta alla carbonara; Un piatto delizioso; ; 1000; 15 minuti; 1
+					 ; 2; Pasta cipolla e pancetta; Un piatto ancora piatto leggero; ; 1500; 20 minuti; 2
+					 ; 3; Pasta al pomodoro; Un piatto classico; ; 800; 15 minuti; 3
+					 ; 4; Crepes francesi; Un piatto delizioso; ; 1200; 25 minuti; 4
+					 
+					 
+INSERT_UPDATE RecipeEntry; id[unique=true]; ricetta(id); quantita; ingrediente(id)
+						 ; 1; 1; 1; 1
+						 ; 2; 1; 100 grammi; 7
+						 ; 3; 1; 200 grammi; 8
+						 ; 4; 2; 200 grammi; 8
+						 ; 5; 2; 50 grammi; 7
+						 ; 6; 2; 50 grammi; 10
+						 ; 7; 4; 2; 1 
+						 ; 8; 4; 150 grammi; 2
+						 ; 9; 4; 250 ml; 5
+						 ; 10; 4; 50 grammi; 11
+					
+INSERT_UPDATE Strumento; id[unique=true]; nome[lang=$Lang]
+					   ; 1; mestolo
+					   ; 2; pentola
+					   ; 3; frullatore
+					   ; 4; forno
+					   ; 5; coppa
+					   ; 6; coltello
+					   ; 7; frusta 
+					   
+INSERT_UPDATE Ricetta2StrumentoRelation; source(id)[unique=true]; target(id)[unique=true]
+								  ; 1; 2
+								  ; 1; 6
+								  ; 1; 5
+								  ; 2; 2
+								  ; 2; 5
+								  ; 2; 6
+								  ; 4; 5
+								  ; 4; 7
+
+
