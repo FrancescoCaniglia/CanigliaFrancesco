@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- ~ [y] hybris Platform ~ ~ Copyright (c) 2000-2016 SAP SE ~ All rights 
+	reserved. ~ ~ This software is the confidential and proprietary information 
+	of SAP ~ Hybris ("Confidential Information"). You shall not disclose such 
+	~ Confidential Information and shall use it only in accordance with the ~ 
+	terms of the license agreement you entered into with SAP Hybris. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according 
+	to your needs. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="items.xsd">
+
+
+	<!-- enumtype per ExamResultEnum -->
+	<enumtypes>
+		<enumtype code="ExamResultEnum" autocreate="true" generate="true"
+			dynamic="true">
+			<value code="PASSED" />
+			<value code="REJECTED" />
+		</enumtype>
+	</enumtypes>
+
+	<relations>
+		<!-- relazione 1-n tra Professor e Subject -->
+		<relation localized="false" code="Professor2SubjectRelation">
+			<sourceElement type="Professor" qualifier="professor"
+				cardinality="one">
+				<modifiers optional="true" />
+			</sourceElement>
+			<targetElement type="Subject" qualifier="subjects"
+				cardinality="many">
+				<modifiers optional="true" />
+			</targetElement>
+		</relation>
+		<!-- relazione 1-n tra Student e Exam -->
+		<relation localized="false" code="Student2ExamRelation">
+			<sourceElement type="Student" qualifier="student"
+				cardinality="one">
+				<modifiers optional="true" />
+			</sourceElement>
+			<targetElement type="Exam" qualifier="exams"
+				cardinality="many">
+				<modifiers optional="true" />
+			</targetElement>
+		</relation>
+
+
+
+
+	</relations>
+
+
+
+	<itemtypes>
+		<!-- item type della tabella Individual -->
+		<itemtype code="Individual" autocreate="true" generate="true">
+			<deployment table="Individual" typecode="15554" />
+			<attributes>
+				<attribute qualifier="serialNumber" type="java.lang.String">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute qualifier="fullName" type="java.lang.String">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute qualifier="birthDate" type="java.util.Date">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<!-- item type della tabella Professor che estende Individual -->
+		<itemtype code="Professor" extends="Individual" autocreate="true"
+			generate="true">
+			<deployment table="Professor" typecode="15555" />
+		</itemtype>
+		<!-- item type della tabella Student che estende Individual -->
+		<itemtype code="Student" extends="Individual" autocreate="true"
+			generate="true">
+			<deployment table="Student" typecode="15556" />
+		</itemtype>
+		<!-- item type della tabella Subject -->
+		<itemtype code="Subject" autocreate="true" generate="true">
+			<deployment table="Subject" typecode="15557" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="uid">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="localized:java.lang.String" qualifier="name">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="localized:java.lang.String" qualifier="program">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property">
+						<columntype>
+							<value>HYBRIS.LONG_STRING</value>
+						</columntype>
+					</persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+		<!-- item type della tabella Exam -->
+		<itemtype code="Exam" autocreate="true" generate="true">
+			<deployment table="Exam" typecode="15558" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="uid">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="Subject" qualifier="subject">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="ExamResultEnum" qualifier="result">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.Integer" qualifier="grade">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+
+	</itemtypes>
+</items>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- ~ [y] hybris Platform ~ ~ Copyright (c) 2000-2016 SAP SE ~ All rights 
+	reserved. ~ ~ This software is the confidential and proprietary information 
+	of SAP ~ Hybris ("Confidential Information"). You shall not disclose such 
+	~ Confidential Information and shall use it only in accordance with the ~ 
+	terms of the license agreement you entered into with SAP Hybris. -->
+
+<!-- ATTENTION: This is just an example file. You have to edit it according 
+	to your needs. -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="beans.xsd">
+
+<!-- beans che forniscono i Data per la manipolazione dei dati -->	
+	<bean class="my.universityuiip.data.StudentData">
+		<property name="serialNumber" type="java.lang.String" />
+		<property name="fullName" type="java.lang.String" />
+		<property name="birthDate" type="java.util.Date" />
+	</bean>
+
+	<bean class="my.universityuiip.data.ProfessorData">
+		<property name="serialNumber" type="java.lang.String" />
+		<property name="fullName" type="java.lang.String" />
+		<property name="birthDate" type="java.util.Date" />
+	</bean>
+
+	<bean class="my.universityuiip.data.SubjectData">
+		<property name="uid" type="java.lang.String" />
+		<property name="name" type="java.lang.String" />
+		<property name="program" type="java.lang.String" />
+	</bean>
+
+	<bean class="my.universityuiip.data.ExamData">
+		<property name="uid" type="java.lang.String" />
+		<property name="subject" type="my.universityuiip.data.SubjectData" />
+		<property name="result" type="Enum" />
+		<property name="grade" type="java.lang.Integer" />
+	</bean>
+
+
+</beans>

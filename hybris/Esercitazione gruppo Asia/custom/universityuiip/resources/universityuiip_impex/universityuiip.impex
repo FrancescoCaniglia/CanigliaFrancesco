@@ -1,0 +1,28 @@
+# USE CTRL-SPACE for type-ahead support
+$lang=en
+
+INSERT_UPDATE Professor; serialNumber[unique=true]; fullName; birthDate[dateformat='dd/MM/yyyy']
+					   ; a1asd-5asda; Chu Wenchang; 22/05/1949
+					   ; 5451a-dsae4; Francesco Palmieri; 21/07/1985
+					   ; 5a4sd-asda1; Gianpaolo Perrella; 20/09/1984
+					   
+
+INSERT_UPDATE Student; serialNumber[unique=true]; fullName; birthDate[dateformat='dd/MM/yyyy']
+				     ; ert3w-sdfsd; Francesco Caniglia; 14/05/1991
+				     ;asdgf-asdgh; Francesco Randillo; 19/10/1994
+				     ; ag31-ytrty; Francesca Di Mare; 30/09/1981
+				     
+INSERT_UPDATE Subject; uid[unique=true]; name[lang=$lang]; program[lang=$lang]; professor(serialNumber)
+					 ; 1; SAP Hybris; Il programma verte sullo sbagliare ogni passaggio della programmazione, violentare i poveri DB, ma alla fine dominare Hybris e diventare un consulente master al top;5451a-dsae4
+					 ; 2; JavaI; è semplicemente propedeutico per JavaII;5a4sd-asda1
+					 ; 3; JavaII; è semplicemente propedeutico per JavaIII;5a4sd-asda1
+					 ; 4; JavaIII; è sempicemente propedeutico per Sap Hybris;5a4sd-asda1
+					 
+INSERT_UPDATE Exam; uid[unique=true]; subject(uid); result; grade; student(serialNumber)
+				  ; 1; 1; ; 28; ert3w-sdfsd
+				  ; 1; 1; ; 28; asdgf-asdgh
+				  ; 1; 1; ; 28; ag31-ytrty
+				  
+				
+
+					  
