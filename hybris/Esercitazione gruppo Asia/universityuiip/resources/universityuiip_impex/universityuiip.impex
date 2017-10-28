@@ -1,4 +1,4 @@
-# USE CTRL-SPACE for type-ahead support
+s# USE CTRL-SPACE for type-ahead support
 $lang=en
 
 INSERT_UPDATE Professor; serialNumber[unique=true]; fullName; birthDate[dateformat='dd/MM/yyyy']
@@ -20,8 +20,8 @@ INSERT_UPDATE Subject; uid[unique=true]; name[lang=$lang]; program[lang=$lang]; 
 					 
 INSERT_UPDATE Exam; uid[unique=true]; subject(uid); result; grade; student(serialNumber)
 				  ; 1; 1; ; 28; ert3w-sdfsd
-				  ; 1; 1; ; 28; asdgf-asdgh
-				  ; 1; 1; ; 28; ag31-ytrty
+				  ; 2; 1; ; 28; asdgf-asdgh
+				  ; 3; 1; ; 28; ag31-ytrty
 				  
 				
 

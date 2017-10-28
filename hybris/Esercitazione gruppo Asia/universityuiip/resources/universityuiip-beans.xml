@@ -12,16 +12,20 @@
 	xsi:noNamespaceSchemaLocation="beans.xsd">
 
 <!-- beans che forniscono i Data per la manipolazione dei dati -->	
-	<bean class="my.universityuiip.data.StudentData">
+	
+	<bean class="my.universityuiip.data.IndividualData">
 		<property name="serialNumber" type="java.lang.String" />
 		<property name="fullName" type="java.lang.String" />
 		<property name="birthDate" type="java.util.Date" />
 	</bean>
+	
+	
+	<bean class="my.universityuiip.data.StudentData" extends="my.universityuiip.data.IndividualData" >
+		<property name="examsList" type="java.util.List&lt;my.universityuiip.data.ExamData>" />
+	</bean>
 
-	<bean class="my.universityuiip.data.ProfessorData">
-		<property name="serialNumber" type="java.lang.String" />
-		<property name="fullName" type="java.lang.String" />
-		<property name="birthDate" type="java.util.Date" />
+	<bean class="my.universityuiip.data.ProfessorData" extends="my.universityuiip.data.IndividualData">
+		<property name="subjectsList" type="java.util.List&lt;my.universityuiip.data.SubjectData>" />
 	</bean>
 
 	<bean class="my.universityuiip.data.SubjectData">
@@ -33,7 +37,7 @@
 	<bean class="my.universityuiip.data.ExamData">
 		<property name="uid" type="java.lang.String" />
 		<property name="subject" type="my.universityuiip.data.SubjectData" />
-		<property name="result" type="Enum" />
+		<property name="result" type="String" />
 		<property name="grade" type="java.lang.Integer" />
 	</bean>
 

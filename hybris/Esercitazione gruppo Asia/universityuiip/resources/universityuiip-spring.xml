@@ -95,16 +95,27 @@
 		<property name="subjectDao" ref="subjectDao"></property>
 	</bean>
 
+	<bean id="studentFacade" class="my.universityuiip.studente.facade.impl.DefaultStudentFacade">
+	<property name="studentService" ref="individualService"></property>
+	<property name="studentConverter" ref="studentConverter"></property>
+	
+	</bean>
 
 	<!--bean delle interceptor -->
+	
+	
+	
 	<bean id="myExamPrepareInterceptor" class="my.universityuiip.interceptor.MyExamPrepareInterceptor">
 	</bean>
 
-	<bean id="myExamePrepareMapping"
+	<bean id="myExamPrepareMapping"
 		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
 		<property name="interceptor" ref="myExamPrepareInterceptor"></property>
-		<property name="typecode" value="Exam"></property>
+		<property name="typeCode" value="Exam"></property>
 	</bean>
+
+
+
 
 	<bean id="myProfessorInitInterceptor"
 		class="my.universityuiip.interceptor.MyProfessorInitInterceptor">
@@ -113,8 +124,11 @@
 	<bean id="myProfessorInitMapping"
 		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
 		<property name="interceptor" ref="myProfessorInitInterceptor"></property>
-		<property name="typecode" value="Professor"></property>
+		<property name="typeCode" value="Professor"></property>
 	</bean>
+
+
+
 
 	<bean id="myStudentInitInterceptor" class="my.universityuiip.interceptor.MyStudentInitInterceptor">
 	</bean>
@@ -122,7 +136,96 @@
 	<bean id="myStudentInitMapping"
 		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
 		<property name="interceptor" ref="myStudentInitInterceptor"></property>
-		<property name="typecode" value="Student"></property>
+		<property name="typeCode" value="Student"></property>
 	</bean>
+
+<!-- CONVERTER E POPULATOR PER SUBJECT -->
+
+	<alias name="defaultSubjectConverter" alias="subjectConverter" />
+	<bean id="defaultSubjectConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.universityuiip.data.SubjectData" />
+		<property name="populators">
+			<list>
+				<ref bean="subjectPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultSubjectPopulator" alias="subjectPopulator" />
+	<bean id="defaultSubjectPopulator" class="my.universityuiip.populator.subject.SubjectPopulator">
+	</bean>
+
+
+<!-- CONVERTER E POPULATOR PER EXAM -->
+
+	<alias name="defaultExamConverter" alias="examConverter" />
+	<bean id="defaultExamConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.universityuiip.data.ExamData" />
+		<property name="populators">
+			<list>
+				<ref bean="examPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultExamPopulator" alias="examPopulator" />
+	<bean id="defaultExamPopulator" class="my.universityuiip.populator.exam.ExamPopulator">
+		<property name="subjectConverter" ref="subjectConverter" />
+	</bean>
+
+
+<!-- CONVERTER E POPULATOR PER INDIVIDUAL -->
+
+	<alias name="defaultIndividualConverter" alias="individualConverter" />
+	<bean id="defaultIndividualConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.universityuiip.data.IndividualData" />
+		<property name="populators">
+			<list>
+				<ref bean="individualPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultIndividualPopulator" alias="individualPopulator" />
+	<bean id="defaultIndividualPopulator" class="my.universityuiip.populator.individual.IndividualPopulator">
+	</bean>
+	
+<!-- CONVERTER E POPULATOR PER PROFESSOR -->
+
+	<alias name="defaultProfessorConverter" alias="professorConverter" />
+	<bean id="defaultProfessorConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.universityuiip.data.ProfessorData" />
+		<property name="populators">
+			<list>
+				<ref bean="professorPopulator" />
+				<ref bean="individualPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultProfessorPopulator" alias="professorPopulator" />
+	<bean id="defaultProfessorPopulator" class="my.universityuiip.populator.professor.ProfessorPopulator">
+	<property name="subjectConverter" ref="subjectConverter"></property>
+	</bean>
+
+
+<!-- CONVERTER E POPULATOR PER STUDENT -->
+
+<alias name="defaultStudentConverter" alias="studentConverter" />
+	<bean id="defaultStudentConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.universityuiip.data.StudentData" />
+		<property name="populators">
+			<list>
+				<ref bean="studentPopulator" />
+				<ref bean="individualPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultStudentPopulator" alias="studentPopulator" />
+	<bean id="defaultStudentPopulator" class="my.universityuiip.populator.student.StudentPopulator">
+	<property name="examConverter" ref="examConverter"></property>
+	</bean>
+
 
 </beans>
