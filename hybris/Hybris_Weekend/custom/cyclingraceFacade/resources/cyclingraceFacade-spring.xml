@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!--
+	The hybris platform provides one single Spring application context for beans located at the jalo layer.
+	Each extension can add beans to this context by specifying them at this configuration file.
+	 
+	You can use and/or redefine beans defined at configuration files of other extensions as well as
+	adding new one.
+		
+	If you want to locate this file at a different location or want to use several files for better,
+	structuring, please use the '<yourextension>.application-context' property at your project.properties file.
+	There you can specify a comma separated list of files where first is tried to find a file per classpath and
+	then per file system.
+
+	
+	If you want to configure beans for your web module please have a look at
+	your web/webroot/WEB-INF/<extname>-web-spring.xml.
+	-->
+	
+	<!--  Example how to override a manager -->
+	<!--
+	<bean id="core.productManager"   class="my.cyclingraceFacade.jalo.CyclingraceFacadeProductManager" 	init-method="init"	destroy-method="destroy" />
+	-->
+	
+	
+ 	<!--  Example how to configure the class to use for jalo session creation -->
+	<!--
+	<bean id="jalosession"   class="de.hybris.platform.jalo.JaloSessionFactory">
+		<property name="targetClassName" value="my.cyclingraceFacade.jalo.CyclingraceFacadeJaloSession"/>
+	</bean>
+	-->
+
+	
+	<!--  Example how to override an item  -->
+	<!-- 
+	<bean id="de.hybris.platform.jalo.product.Product" class="my.cyclingraceFacade.jalo.CyclingraceFacadeProduct" scope="prototype" />		
+ 	-->
+
+	<!--  
+	 Example how to register and use an AOP aspect 
+     Also see http://static.springframework.org/spring/docs/2.5.x/reference/aop.html	
+     -->
+	
+	<!-- 
+	<bean id="cyclingraceFacadeProfBean" class="my.cyclingraceFacade.aop.CyclingraceFacadeProfilingAspect"/>
+	<aop:config proxy-target-class="true">
+  		<aop:aspect id="cyclingraceFacadeProfAspect" ref="cyclingraceFacadeProfBean" >
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="execution(* getModificationTime(..))" />  	            
+	   		<aop:around pointcut-ref="profiledMethods" method="profile" />
+  		</aop:aspect>
+	</aop:config>
+	 -->
+
+	
+	<!-- some other examples of a pointcut that matches everything:
+
+    	  <aop:pointcut id="profiledMethods" 
+	      	expression="bean(de.hybris.platform.jalo.user.Customer) &amp;&amp; 
+	      	            !execution(* getPK(..))" />  	            
+	       <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />	
+	  -->
+	
+    <bean id="cyclingraceFacadeSystemSetup" class="my.cyclingraceFacade.setup.CyclingraceFacadeSystemSetup">
+        <!-- constructor arg injection example -->
+        <constructor-arg ref="cyclingraceFacadeService"/>
+    </bean>
+
+    <bean id="cyclingraceFacadeService" class="my.cyclingraceFacade.service.impl.DefaultCyclingraceFacadeService">
+        <!-- setter injection example -->
+        <property name="modelService" ref="modelService"/>
+        <property name="mediaService" ref="mediaService"/>
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+    
+    
+    
+    <!-- BEANS PER COVERTER/POPULATOR -->
+    
+    <!-- CYCLIST -->
+    <alias name="defaultCyclistConverter" alias="cyclistConverter" />
+	<bean id="defaultCyclistConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.cyclingraceFacade.data.CyclistData" />
+		<property name="populators">
+			<list>
+				<ref bean="cyclistPopulator" />
+			</list>
+		</property>
+	</bean>
+
+    <alias name="defaultCyclistPopulator" alias="cyclistPopulator"/>
+    <bean id="defaultCyclistPopulator" class="my.cyclingrace.Cyclist.Populator.DefaultCyclistPopulator">
+    </bean>
+    
+    <!-- STAGE RANKING -->
+    
+    <alias name="defaultStageRankingConverter" alias="stageRankingConverter" />
+	<bean id="defaultStageRankingConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.cyclingraceFacade.data.StageRankingData" />
+		<property name="populators">
+			<list>
+				<ref bean="stageRankingPopulator" />
+				<ref bean="cyclistPopulator" />
+			</list>
+		</property>
+	</bean>
+
+    <alias name="defaultStageRankingPopulator" alias="stageRankingPopulator"/>
+    <bean id="defaultStageRankingPopulator" class="my.cyclingrace.StageRanking.Populator.DefaultStageRankingPopulator">
+    <property name="cyclistConverter" ref="cyclistConverter"></property>
+    </bean>
+    
+     <!-- STAGE -->
+    
+    <alias name="defaultStageConverter" alias="stageConverter" />
+	<bean id="defaultStageConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.cyclingraceFacade.data.StageData" />
+		<property name="populators">
+			<list>
+				<ref bean="stagePopulator" />
+				<ref bean="stageRankingPopulator" />
+			</list>
+		</property>
+	</bean>
+
+    <alias name="defaultStagePopulator" alias="stagePopulator"/>
+    <bean id="defaultStagePopulator" class="my.cyclingrace.Stage.Populator.DefaultStagePopulator">
+    <property name="stageRankingConverter" ref="stageRankingConverter"></property>
+    </bean>
+    
+    
+     <!-- STAGE RACE -->
+    
+    <alias name="defaultStageRaceConverter" alias="stageRaceConverter" />
+	<bean id="defaultStageRaceConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.cyclingraceFacade.data.StageRaceData" />
+		<property name="populators">
+			<list>
+				<ref bean="stageRacePopulator" />
+				<ref bean="stageRankingPopulator" />
+			</list>
+		</property>
+	</bean>
+
+    <alias name="defaultStageRacePopulator" alias="stageRacePopulator"/>
+    <bean id="defaultStageRacePopulator" class="my.cyclingrace.StageRace.Populator.DefaultStageRacePopulator">
+    <property name="stageConverter" ref="stageConverter"></property>
+    </bean>
+    
+    <!-- CYCLIST RANKING -->
+    
+    <alias name="defaultCyclistRankingConverter" alias="cyclistRankingConverter" />
+	<bean id="defaultCyclistRankingConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.cyclingraceFacade.data.CyclistRankingData" />
+		<property name="populators">
+			<list>
+				<ref bean="cyclistRankingPopulator" />
+				<ref bean="cyclistPopulator" />
+				<ref bean="stageRacePopulator" />
+			</list>
+		</property>
+	</bean>
+
+    <alias name="defaultCyclistRankingPopulator" alias="cyclistRankingPopulator"/>
+    <bean id="defaultCyclistRankingPopulator" class="my.cyclingrace.CyclistRanking.Populator.DefaultCyclistRankingPopulator">
+    <property name="cyclistConverter" ref="cyclistConverter"></property>
+    <property name="stageRaceConverter" ref="stageRaceConverter"></property>
+    </bean>
+			
+</beans>
