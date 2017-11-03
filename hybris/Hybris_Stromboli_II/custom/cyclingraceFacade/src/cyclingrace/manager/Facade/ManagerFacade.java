@@ -11,8 +11,6 @@
  */
 package cyclingrace.manager.Facade;
 
-import java.util.List;
-
 import my.cyclingraceDaoService.data.ManagerData;
 
 
@@ -21,5 +19,5 @@ import my.cyclingraceDaoService.data.ManagerData;
  */
 public interface ManagerFacade
 {
-	public List<ManagerData> getManagersForCode(final String code);
+	public ManagerData getManagerForCode(final String code);
 }

@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at 3-nov-2017 1.46.32                          ---
+ * --- Generated at 3-nov-2017 2.08.33                          ---
  * ----------------------------------------------------------------
  */
 package my.cyclingraceFacade.constants;

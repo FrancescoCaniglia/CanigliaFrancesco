@@ -44,6 +44,7 @@
 	<extension name='universityuiip'/>-->
 	<extension name='cyclingraceDaoService'/>
 	<extension name='cyclingraceFacade'/>
+	<extension name='cyclingraceFrontend'/>	
 	<extension name='cuppy'/>
 	<extension name='cuppytrail'/>
 	<extension name='cuppytrailhmc'/>

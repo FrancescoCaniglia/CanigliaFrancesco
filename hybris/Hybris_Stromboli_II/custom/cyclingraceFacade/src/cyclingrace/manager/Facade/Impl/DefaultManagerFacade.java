@@ -13,9 +13,6 @@ package cyclingrace.manager.Facade.Impl;
 
 import de.hybris.platform.converters.impl.AbstractPopulatingConverter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Required;
 
 import cyclingrace.manager.Facade.ManagerFacade;
@@ -73,16 +70,12 @@ public class DefaultManagerFacade implements ManagerFacade
 
 
 	@Override
-	public List<ManagerData> getManagersForCode(final String code)
+	public ManagerData getManagerForCode(final String code)
 	{
-		if (!managerService.getManagersForCode(code).isEmpty())
+		if (managerService.getManagerForCode(code) != null)
 		{
-			final List<ManagerData> managersData = new ArrayList<ManagerData>();
-			for (final ManagerModel mm : managerService.getManagersForCode(code))
-			{
-				managersData.add(managerConverter.convert(mm));
-			}
-			return managersData;
+			final ManagerData managerData = managerConverter.convert(managerService.getManagerForCode(code));
+			return managerData;
 		}
 		else
 		{

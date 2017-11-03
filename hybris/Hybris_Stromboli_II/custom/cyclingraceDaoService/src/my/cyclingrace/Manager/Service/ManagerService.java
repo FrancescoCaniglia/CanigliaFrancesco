@@ -11,8 +11,6 @@
  */
 package my.cyclingrace.Manager.Service;
 
-import java.util.List;
-
 import my.cyclingraceDaoService.model.ManagerModel;
 
 
@@ -21,5 +19,5 @@ import my.cyclingraceDaoService.model.ManagerModel;
  */
 public interface ManagerService
 {
-	public List<ManagerModel> getManagersForCode(String code);
+	public ManagerModel getManagerForCode(String code);
 }

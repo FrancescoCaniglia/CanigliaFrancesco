@@ -11,8 +11,6 @@
  */
 package my.cyclingrace.Manager.Service.Impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Required;
 
 import my.cyclingrace.Manager.Dao.ManagerDao;
@@ -46,12 +44,12 @@ public class DefaultManagerService implements ManagerService
 
 
 	@Override
-	public List<ManagerModel> getManagersForCode(final String code)
+	public ManagerModel getManagerForCode(final String code)
 	{
 		if (!managerDao.findManagersByCode(code).isEmpty())
 		{
-			final List<ManagerModel> managers = managerDao.findManagersByCode(code);
-			return managers;
+			final ManagerModel manager = managerDao.findManagersByCode(code).get(0);
+			return manager;
 		}
 		else
 		{
