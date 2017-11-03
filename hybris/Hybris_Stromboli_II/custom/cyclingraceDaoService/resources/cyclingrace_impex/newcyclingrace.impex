@@ -1,0 +1,60 @@
+INSERT_UPDATE StageRace;code[unique=true];name;endDate[dateformat='MM/DD/YYYY'];edition
+        			   ;1;Giro Italia;;100
+
+INSERT_UPDATE Manager;code[unique=true];name;surname;birthDate[dateformat='MM/DD/YYYY'];nationality
+      				 ;1;Mario;Saponara;08/05/1985;Italian
+      				 ;2;Alexandre;Vinokourov;09/16/1973;Kazakh
+      				 ;3;David;Brailsford;05/03/1970;English
+
+INSERT_UPDATE Team; code[unique=true]; name; year; cycleModel; nationality; manager(code)
+  					; 1; SkyRace; 2017; Atala; Inghilterra;3
+  					; 2; MapeiCorse; 2017; Legnano; Italia; 1
+
+INSERT_UPDATE Cyclist;code[unique=true];name;surname;birthDate[dateformat='MM/DD/YYYY'];nationality;weight;height;team(code)
+      				 ;1;Tom;Dumoulin;11/11/1990;Dutch;71Kg;1.86m;2
+      				 ;2;Nairo;Quintana;02/04/1990;Colombian;58Kg;1.67m;1
+      				 ;3;Vincenzo;Nibali;11/14/1984;Italian;65Kg;1.81m;1
+      				 ;4;Thibaut;Pinot;04/29/1990;French;63Kg;1.80m;2
+      				 ;5;Domenico;Pozzovivo;11/30/1982;Italian;53Kg;1.65m;2
+      				 ;6;Bauke;Mollema;11/26/1986;Dutch;64Kg;1.81m;2
+      				
+
+      				         
+INSERT_UPDATE Stage;code[unique=true];startdate[dateformat='MM/DD/YYYY'];days;endDate[dateformat='MM/DD/YYYY'];startPoint;endPoint;km;stageRace(code)
+       				;1;05/06/2017;5;;Rovetta;Bormio;200;1
+       				;2;05/12/2017;4;;Tirano;Canazei;250;1
+       				;3;05/16/2017;3;;Moena;Ortisei;300;1
+       				;4;05/19/2017;6;;SanCandido;Piancavallo;150;1
+       				;5;05/26/2017;2;;Pordenone;Asiago;160;1
+       				;6;05/28/2017;1;;Monza;Milano;100;1
+ 
+INSERT_UPDATE StageRanking;code[unique=true];ranking;timeInSeconds;status(code);stage(code);cyclist(code)
+        				  ;1;1; 10000; FINISHED; 1; 6
+        				  ;2;2; 10050; FINISHED; 1; 2
+       					  ;3;3; 10100; FINISHED; 1; 5
+        				  ;4;4; 10200; FINISHED; 1; 4
+        				  ;5;5; 10300; FINISHED; 1; 3
+        				  ;6;6; 10400; FINISHED; 1; 1 
+        				  ;7;1; 10000; FINISHED; 2; 1
+        				  ;8;2; 11000; FINISHED; 2; 2
+       					  ;9;3; 12000; FINISHED; 2; 5
+        				  ;10;4; 13000; FINISHED; 2; 3
+        				  ;11;5; 14000; FINISHED; 2; 6
+        				  ;12;6; 90000; RETIRED; 2; 4
+        				  ;13;1; 10000; FINISHED; 3; 6
+        				  ;14;2; 11000; FINISHED; 3; 5
+       					  ;15;3; 12000; FINISHED; 3; 2
+        				  ;16;4; 13000; FINISHED; 3; 4
+        				  ;17;5; 14000; FINISHED; 3; 3
+        				  ;18;6; 90000; RETIRED; 3; 1
+        				              
+INSERT_UPDATE CyclistRanking;code[unique=true];raceRanking;timeTotInSeconds;cyclist(code);stageRace(code)
+       						;1;1;33050;2;1
+       						;2;2;33100;5;1
+      						;3;3;34000;6;1
+       						;4;4;37300;3;1
+       						;5;5;110400;1;1
+       						;6;6;113200;4;1
+       						
+
+       

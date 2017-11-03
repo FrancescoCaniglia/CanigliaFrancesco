@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ [y] hybris Platform
+  ~ 
+  ~ Copyright (c) 2000-2016 SAP SE
+  ~ All rights reserved.
+  ~ 
+  ~ This software is the confidential and proprietary information of SAP 
+  ~ Hybris ("Confidential Information"). You shall not disclose such 
+  ~ Confidential Information and shall use it only in accordance with the 
+  ~ terms of the license agreement you entered into with SAP Hybris.
+  -->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+	
+		
+	<bean class="my.cyclingraceDaoService.data.PersonData">
+    	<property name="name" type="java.lang.String" />
+    	<property name="surname" type="java.lang.String"/>
+		<property name="birthDate" type="java.util.Date"/>
+		<property name="nationality" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="my.cyclingraceDaoService.data.CyclistData" extends="my.cyclingraceDaoService.data.PersonData" >
+		<property name="code" type="java.lang.String" />
+		<property name="age" type="java.lang.String" />
+    	<property name="weight" type="java.lang.String" />
+    	<property name="height" type="java.lang.String"/>
+	</bean>
+	
+	<bean class="my.cyclingraceDaoService.data.ManagerData" extends="my.cyclingraceDaoService.data.PersonData" >
+	<property name="code" type="java.lang.String" />
+	</bean>
+	
+		<bean class="my.cyclingraceDaoService.data.StageRankingData">
+		<property name="code" type="java.lang.String" />
+    	<property name="ranking" type="java.lang.Integer" />
+    	<property name="timeInSeconds" type="java.lang.Integer"/>
+		<property name="Status" type="String"/>
+		<property name="Cyclist" type="my.cyclingraceDaoService.data.CyclistData"/>
+	</bean>
+	
+	
+	<bean class="my.cyclingraceDaoService.data.StageData">
+		<property name="code" type="java.lang.String" />
+    	<property name="startdate" type="java.util.Date" />
+    	<property name="days" type="java.lang.Integer"/>
+		<property name="endDate" type="java.util.Date"/>
+		<property name="startPoint" type="java.lang.String"/>
+		<property name="endPoint" type="java.lang.String"/>
+		<property name="km" type="java.lang.Integer"/>
+		<property name="stageRankingsList" type="java.util.List&lt;my.cyclingraceDaoService.data.StageRankingData>"/>
+	</bean>
+		
+	
+	<bean class="my.cyclingraceDaoService.data.StageRaceData">
+		<property name="code" type="java.lang.String" />
+    	<property name="name" type="java.lang.String" />
+    	<property name="endDate" type="java.util.Date"/>
+		<property name="edition" type="java.lang.String"/>
+		<property name="stagesList" type="java.util.List&lt;my.cyclingraceDaoService.data.StageData>"></property>
+	</bean>
+	
+	<bean class="my.cyclingraceDaoService.data.CyclistRankingData">
+	<property name="code" type="String"/>
+	<property name="timeTotInSeconds" type="Integer"/>
+	<property name="raceRanking" type="Integer"/>
+	<property name="cyclist" type="my.cyclingraceDaoService.data.CyclistData"/>
+	<property name="stageRace" type="my.cyclingraceDaoService.data.StageRaceData"/>
+	</bean>
+	
+	<bean class="my.cyclingraceDaoService.data.CyclistTeamData">
+	<property name="code" type="String"/>
+	<property name="name" type="String"/>
+	<property name="year" type="Integer"/>
+	<property name="cycleModel" type="String"/>
+	<property name="nationality" type="String"/>
+	<property name="manager" type="my.cyclingraceDaoService.data.ManagerData"/>
+	<property name="cyclistsList" type="java.util.List&lt;my.cyclingraceDaoService.data.CyclistData>"/>
+	</bean>
+	
+	
+	
+
+</beans>
