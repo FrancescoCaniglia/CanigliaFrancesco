@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- ~ [y] hybris Platform ~ ~ Copyright (c) 2000-2016 SAP SE ~ All rights 
+	reserved. ~ ~ This software is the confidential and proprietary information 
+	of SAP ~ Hybris ("Confidential Information"). You shall not disclose such 
+	~ Confidential Information and shall use it only in accordance with the ~ 
+	terms of the license agreement you entered into with SAP Hybris. -->
+<!-- ATTENTION: This is just an example file. You have to edit it according 
+	to your needs. -->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<enumtypes>
+		<enumtype code="genderPerson" autocreate="true" generate="true"
+			dynamic="true">
+			<value code="MALE" />
+			<value code="FEMALE" />
+		</enumtype>
+		<enumtype code="examinationResult" autocreate="true"
+			generate="true" dynamic="true">
+			<value code="POSITIVE" />
+			<value code="NEGATIVE" />
+		</enumtype>
+		<enumtype code="recoveryStatus">
+		<value code="RECOVERED"/>
+		<value code="QUIT"/>
+		</enumtype>
+	</enumtypes>
+
+	<relations>
+		<relation localized="false" code="Hospital2WardRelation">
+			<sourceElement type="Hospital" qualifier="hospital"
+				cardinality="one" />
+			<targetElement type="Ward" qualifier="wards"
+				cardinality="many" />
+		</relation>
+		<relation localized="false" code="Ward2DoctorRelation">
+			<sourceElement type="Ward" qualifier="ward"
+				cardinality="one" />
+			<targetElement type="Doctor" qualifier="doctors"
+				cardinality="many" />
+		</relation>
+		<relation localized="false" code="Ward2PatientRelation">
+			<sourceElement type="Ward" qualifier="ward"
+				cardinality="one" />
+			<targetElement type="Patient" qualifier="patients"
+				cardinality="many" />
+		</relation>
+		<relation localized="false" code="Patient2ExaminationRelation">
+			<sourceElement type="Patient" qualifier="patient"
+				cardinality="one" />
+			<targetElement type="PhysicalExamination" qualifier="examinations"
+				cardinality="many" />
+		</relation>
+		<relation localized="false" code="Doctor2PatientRelation">
+			<sourceElement type="Doctor" qualifier="doctor"
+				cardinality="one" />
+			<targetElement type="Patient" qualifier="patients"
+				cardinality="many" />
+		</relation>
+	</relations>
+
+	<itemtypes>
+
+		<itemtype code="Hospital" autocreate="true" generate="true">
+			<deployment table="Hospital" typecode="17000" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="code">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="name">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="city">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="nation">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="HospitalPerson" autocreate="true" generate="true">
+			<deployment table="HospitalPerson" typecode="17001" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="cf">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="name">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="surname">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+
+				<attribute type="java.util.Date" qualifier="birthDate">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="birthPlace">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="gender" qualifier="gender">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="Patient" autocreate="true" generate="true"
+			extends="HospitalPerson">
+			<deployment table="Patient" typecode="17002" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="code">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.util.Date" qualifier="enterDate">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.util.Date" qualifier="escDate">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.Integer" qualifier="days">
+					<modifiers optional="true" unique="false" />
+					<persistence type="dynamic" attributeHandler="recoveryDaysHandler"/>
+				</attribute>
+				<attribute type="recoveryStatus" qualifier="recoveryStatus">
+				<modifiers optional="true" unique="false" />
+				<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="Doctor" autocreate="true" generate="true"
+			extends="HospitalPerson">
+			<deployment table="Doctor" typecode="17003" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="code">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="recordNumber">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="Ward" autocreate="true" generate="true">
+			<deployment table="Ward" typecode="17004" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="code">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.lang.String" qualifier="name">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="PhysicalExamination" autocreate="true"
+			generate="true">
+			<deployment table="PhysicalExamination" typecode="17005" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="code">
+					<modifiers optional="false" unique="true" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="Doctor" qualifier="doctor">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="examinationResult" qualifier="result">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+				<attribute type="java.util.Date" qualifier="date">
+					<modifiers optional="true" unique="false" />
+					<persistence type="property"></persistence>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+
+	</itemtypes>
+</items>
