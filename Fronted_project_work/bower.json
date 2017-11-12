@@ -1,0 +1,11 @@
+{
+  "name": "frontend-uiip-soprasteria",
+  "description": "frontend-uiip-soprasteria",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "slick": "*"
+  },
+  "devDependencies": {}
+}

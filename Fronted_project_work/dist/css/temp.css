@@ -1,0 +1,164 @@
+body {
+  background-color: rgba(191, 177, 177, 0.36);
+  /* Set a style for all buttons */
+  /* Extra styles for the cancel button */
+  /* Float cancel and signup buttons and add an equal width */
+  /* Add padding to container elements */
+  /* The Modal (background) */
+  /* Modal Content/Box */
+  /* The Close Button (x) */
+  /* Clear floats */
+  /* Change styles for cancel button and signup button on extra small screens */
+}
+body .container .header {
+  min-height: 50px;
+}
+body .container .header header {
+  border-top: 3px solid #c7001b;
+  position: fixed;
+  top: 0;
+  height: 5%;
+  width: 75%;
+  z-index: 1;
+}
+body .container .header header img {
+  width: 40%;
+  float: right;
+}
+@media (min-width: 500px) {
+  body .container .header header img {
+    width: 30%;
+  }
+}
+body .container .header header button {
+  margin-top: 2%;
+}
+body .container .jumbotron {
+  background-color: #c7001b;
+  margin-top: 10%;
+}
+body .container .jumbotron .carousel-inner > .item > img {
+  max-height: 600px;
+}
+body .container footer {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  height: 50%;
+  border: 2px solid #c7001b;
+}
+body .container footer img {
+  float: right;
+  width: 5%;
+  height: 5%;
+  margin-left: 2%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+@media (min-width: 500px) {
+  body .container footer img {
+    width: 3%;
+    height: 3%;
+  }
+}
+body .container footer button {
+  float: left;
+  margin-right: 2%;
+}
+body input[type=text],
+body input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+body .bt {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+body .cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+body .cancelbtn,
+body .signupbtn {
+  float: left;
+  width: 50%;
+}
+body .modalContainer {
+  border: 3px solid #c7001b;
+  padding: 16px;
+}
+body .modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: #000000;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+  padding-top: 60px;
+}
+body .modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+body .close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  color: #000;
+  font-size: 40px;
+  font-weight: bold;
+}
+body .close:hover,
+body .close:focus {
+  color: red;
+  cursor: pointer;
+}
+body .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+@media screen and (max-width: 300px) {
+  body .cancelbtn,
+  body .signupbtn {
+    width: 100%;
+  }
+}
+body #menu li {
+  font-size: xx-large;
+}
+body .mm-menu {
+  font-family: sans-serif;
+  font-size: xx-large;
+  background: rgba(191, 177, 177, 0.36);
+  padding-bottom: 100px;
+  border-color: #c7001b;
+}
+body .mm-menu .mm-listview > li {
+  font-size: large;
+  border-color: #c7001b;
+}

@@ -1,0 +1,14 @@
+{
+  "name": "frontend-uiip-soprasteria",
+  "description": "frontend-uiip-soprasteria",
+  "version": "1.0.0",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib": "^0.11.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "jquery.mmenu": "^6.1.8"
+  },
+  "devDependencies": {}
+}
